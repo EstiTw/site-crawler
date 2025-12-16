@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 from app.routes.deals import router as deals_router
 from app.exceptions import (
@@ -9,11 +10,13 @@ from app.exceptions import (
 )
 from app.errors import BadCredentialsError, ExternalTokenExpiredError, ExternalServiceError
 
+FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
+
 app = FastAPI(title="Site Crawler API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[FRONTEND_ORIGIN],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
