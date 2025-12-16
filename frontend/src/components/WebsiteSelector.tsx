@@ -49,7 +49,7 @@ export const WebsiteSelector = ({ onSelect }: WebsiteSelectorProps) => {
                                 }}
                                 display="flex"
                                 flexDirection="column"
-                                align="flex-start"
+                                alignItems="flex-start"
                                 justifyContent="flex-start"
                             >
                                 <Heading as="h3" size="lg" mb={2} color="gray.800">
