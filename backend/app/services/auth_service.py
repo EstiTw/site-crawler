@@ -12,7 +12,7 @@ def login(email: str, password: str, site: str) -> str:
         headers=common_headers(site),
         json={"email": email, "password": password},
     )
-    if res.status_code in (401, 403):
+    if res.status_code in (400, 401, 403):
         raise BadCredentialsError("Bad credentials")
 
     if not res.ok:
