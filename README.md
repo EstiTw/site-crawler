@@ -1,5 +1,5 @@
 
-## Live Demo
+### Live Demo 🚀
 
 * **Frontend:**
   [https://site-crawler-omega.vercel.app](https://site-crawler-omega.vercel.app)
@@ -18,16 +18,16 @@ I treat a deal as "available" when `deal_status !== "Invested"`.
 ---
 
 
-## Tech Stack
+### Tech Stack 🧰
 
-### Frontend
+#### Frontend
 
 * React + TypeScript
 * Vite
 * Chakra UI
 * Deployed on **Vercel**
 
-### Backend
+#### Backend
 
 * Python 3
 * FastAPI
@@ -36,7 +36,7 @@ I treat a deal as "available" when `deal_status !== "Invested"`.
 
 ---
 
-## Features
+### Features ✨
 
 * Select external platform (FO1 / FO2)
 * Login using external credentials
@@ -47,10 +47,18 @@ I treat a deal as "available" when `deal_status !== "Invested"`.
 
 ---
 
-## Project Structure
+### Project Structure 🗂️
 
 ```
 site-crawler/
 ├── frontend/   # React + Vite application
 └── backend/    # FastAPI application
 ```
+
+---
+
+### Possible Improvements 🔮
+
+- Persist authentication state securely (e.g., HttpOnly cookies or encrypted storage) 🔐
+- Add refresh-token flow for expired external tokens ♻️
+- Add basic unit tests for service and API layers 🧪
