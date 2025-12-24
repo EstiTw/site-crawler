@@ -3,14 +3,14 @@ from app.services.common import base_url, auth_headers
 from app.services.http_client import request
 
 
-def fetch_deals(site: str, token: str) -> list[dict]:
+def fetch_deals(site: str, token: str, view: str = "task-manage") -> list[dict]:
     url = f"{base_url(site)}/v0.0.2/deals-list"
 
     res = request(
         "POST",
         url,
         headers=auth_headers(site, token),
-        json={},
+        json={"view": view},
     )
 
     if res.status_code in (401, 403):
