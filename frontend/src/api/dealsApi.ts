@@ -9,6 +9,7 @@ export async function loginApi(
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, website }),
+        credentials: 'include',
     });
 
     if (!response.ok) {
@@ -22,17 +23,14 @@ export async function loginApi(
 
 export async function fetchFilesApi(
     dealId: number,
-    token: string,
     website: string
 ) {
     const response = await fetch(
         `${API_BASE_URL}/deals/fetch-files/${dealId}?site=${website}`,
         {
             method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
         }
     );
 

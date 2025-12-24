@@ -6,7 +6,6 @@ import type { Deal, File } from '../types/deals';
 
 interface DealsContextType {
     website: string | null;
-    token: string | null;
     deals: Deal[];
     files: File[];
     isLoadingDeals: boolean;
@@ -35,9 +34,6 @@ export const DealsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [website, setWebsiteState] = useState<string | null>(
         () => localStorage.getItem('website')
     );
-    const [token, setToken] = useState<string | null>(
-        () => localStorage.getItem('token')
-    );
     const [deals, setDeals] = useState<Deal[]>([]);
     const [files, setFiles] = useState<File[]>([]);
     const [isLoadingDeals, setIsLoadingDeals] = useState(false);
@@ -59,9 +55,7 @@ export const DealsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
             try {
                 const data = await loginApi(email, password, website);
-                setToken(data.access_token);
                 setDeals(data.available_deals);
-                localStorage.setItem('token', data.access_token);
             } catch (err) {
                 const { message, type } = categorizeError(err);
                 setError(message);
@@ -76,13 +70,13 @@ export const DealsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     const fetchFiles = useCallback(
         async (dealId: number) => {
-            if (!token || !website) return;
+            if (!website) return;
 
             setIsLoadingFiles(true);
             setError(null);
 
             try {
-                const data = await fetchFilesApi(dealId, token, website);
+                const data = await fetchFilesApi(dealId, website);
                 const filesContainer = data.files?.[0]?.data ?? {};
                 const rawFiles = Object.values(filesContainer);
 
@@ -101,25 +95,22 @@ export const DealsProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 setIsLoadingFiles(false);
             }
         },
-        [token, website]
+        [website]
     );
 
     const logout = useCallback(() => {
-        setToken(null);
         setWebsiteState(null);
         setDeals([]);
         setFiles([]);
         setError(null);
         setErrorType(null);
-        localStorage.removeItem('token');
-        localStorage.removeItem('website');;
+        localStorage.removeItem('website');
     }, []);
 
     return (
         <DealsContext.Provider
             value={{
                 website,
-                token,
                 deals,
                 files,
                 isLoadingDeals,

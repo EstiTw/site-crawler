@@ -15,8 +15,7 @@ class AvailableDeal(BaseModel):
     title: str
 
 
-class DealsResponseWithToken(BaseModel):
-    access_token: str
+class DealsResponse(BaseModel):
     available_deals: List[AvailableDeal]
 
 

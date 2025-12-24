@@ -11,7 +11,6 @@ export interface File {
 }
 
 export interface DealsResponse {
-    access_token: string;
     available_deals: Deal[];
 }
 
