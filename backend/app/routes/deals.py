@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Header
 
 from app.models.deals import DealsRequest, DealsResponseWithToken, DealFilesResponse
 from app.services.auth_service import login
@@ -20,7 +20,8 @@ def fetch_deals_route(payload: DealsRequest):
 def fetch_files_route(
     deal_id: int,
     site: str = Query(..., example="fo1"),
-    token: str = Query(..., description="External token returned by /fetch-deals"),
+    authorization: str = Header(..., description="Bearer <token>")
 ):
+    token = authorization.replace("Bearer ", "")
     files = fetch_files_for_deal(site, token, deal_id)
     return {"deal_id": deal_id, "files": files}

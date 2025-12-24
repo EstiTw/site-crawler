@@ -26,9 +26,14 @@ export async function fetchFilesApi(
     website: string
 ) {
     const response = await fetch(
-        `${API_BASE_URL}/deals/fetch-files/${dealId}?token=${encodeURIComponent(
-            token
-        )}&site=${website}`
+        `${API_BASE_URL}/deals/fetch-files/${dealId}?site=${website}`,
+        {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        }
     );
 
     if (!response.ok) {
