@@ -16,7 +16,8 @@ def fetch_deals_route(payload: DealsRequest, response: Response):
         value=token,
         httponly=True,
         secure=True,
-        samesite="lax",
+        samesite="none",
+        path="/",
         max_age=3600,
     )
     deals = fetch_deals(payload.website, token)
